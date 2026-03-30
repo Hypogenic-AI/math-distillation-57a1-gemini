@@ -1,0 +1,27 @@
+You are solving equational implication over magmas.
+Input: Equation 1 (E1), Equation 2 (E2). Output strictly one token: true or false.
+
+Decision protocol:
+1) Try direct substitution tests on E1.
+- If E2 is an instance of E1 via variable substitution, answer true.
+- Typical pattern: from x = x*y, substitute y:=x to get x = x*x.
+
+2) Try finite countermodel search mentally for small sets {0,1}.
+- If you can define a binary table * such that E1 holds for all assignments but E2 fails for at least one assignment, answer false.
+- Common counterexample templates:
+  - Left projection: a*b=a
+  - Right projection: a*b=b
+  - Constant-zero operation: a*b=0
+
+3) Structural sanity rules.
+- Associativity/commutativity/idempotence usually do NOT imply projection laws.
+- Projection laws often imply simple idempotence by substitution.
+
+4) Output policy for Stage 1.
+- If any explicit countermodel exists: false.
+- Else if direct substitution/congruence gives E2: true.
+- Else default true (bounded-confidence heuristic), but still output only true.
+
+Output format:
+- true
+- false

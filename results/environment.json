@@ -1,0 +1,12 @@
+{
+  "python": "3.12.8 (main, Dec 19 2024, 14:33:20) [Clang 18.1.8 ]",
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.35",
+  "numpy": "2.4.4",
+  "sympy": "1.14.0",
+  "matplotlib": "3.10.8",
+  "gpu": [
+    "name, memory.total [MiB], memory.free [MiB]",
+    "NVIDIA GeForce RTX 3090, 24576 MiB, 24161 MiB",
+    "NVIDIA GeForce RTX 3090, 24576 MiB, 24161 MiB"
+  ]
+}

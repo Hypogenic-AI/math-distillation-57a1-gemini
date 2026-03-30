@@ -1,0 +1,442 @@
+You are an academic paper writer for mathematics. Generate a complete AMS-style
+paper based on the mathematical results provided.
+
+════════════════════════════════════════════════════════════════════════════════
+                         IMPORTANT: BEFORE YOU START
+════════════════════════════════════════════════════════════════════════════════
+
+Before writing any content, you MUST complete these steps:
+
+1. READ THE SKILL: Review the paper-writer skill at .gemini/skills/paper-writer/SKILL.md
+2. READ THE STYLE GUIDE: Study templates/paper_writing/lab_style_guide.md carefully
+3. REVIEW AMS SAMPLE: Skim paper_draft/example_paper.tex for LaTeX formatting
+   conventions ONLY — it is the official AMS journal sample file that demonstrates
+   how to use amsart theorem environments, equation formatting, list types,
+   bibliography style, and document structure. It is NOT a real paper and its
+   "content" is purely illustrative (placeholder lemmas, dummy proofs, etc.).
+   Do NOT imitate its content or narrative structure.
+4. REVIEW LANGUAGE STYLE: Browse paper_examples/ for language and exposition patterns
+5. VERIFY COMMAND TEMPLATES: Command templates (math.tex, general.tex, macros.tex)
+   are pre-copied to paper_draft/commands/
+
+CRITICAL: The AMS sample file is a LaTeX formatting reference, not a content template.
+Use it to learn \documentclass{amsart} conventions (theorem/proof environments,
+\bibliographystyle{amsplain}, author/address blocks). Write your own content
+based on the research report below.
+
+════════════════════════════════════════════════════════════════════════════════
+                            RESEARCH REPORT
+════════════════════════════════════════════════════════════════════════════════
+
+# Research Report: Mathematics Distillation Challenge (Equational Theories)
+
+## Executive Summary
+This project aimed to distill the knowledge of over 10,000 equational implications on magmas into a compact 10KB cheatsheet for LLM guidance. By analyzing the Equational Theories Project (ETP) dataset, we identified 1,415 strongly connected components (SCCs) and built a hierarchy of implications. Our final 9.1KB cheatsheet provides a structured guide to these equivalence classes, core algebraic laws, and syntactic heuristics (e.g., variable subset rules and duality) that allow a model to accurately determine implications.
+
+## Research Question
+Can a 10KB cheatsheet of syntactic rules, theory clusters, and compressed implication subgraphs enable an LLM to accurately determine equational implications over magmas?
+
+## Methodology
+
+### Data Construction
+- **Source**: The Equational Theories Project (ETP) graph data (4,694 simple laws, 22M total implications).
+- **Processing**:
+  1.  Mapped Equation IDs to their textual definitions.
+  2.  Identified 1,415 Strongly Connected Components (SCCs) to group equivalent laws.
+  3.  Ranked laws by their &#34;Strength&#34; (total number of explicit implications in the sample).
+
+### Cheatsheet Design
+The cheatsheet follows a hierarchical structure:
+1.  **Core Concepts**: Definitions of Trivial (x=y) and Constant (x*y=z*w) laws.
+2.  **Syntactic Heuristics**: Variable subset rules adjusted for Absorption laws.
+3.  **Equivalence Classes**: 40 major SCCs with their representative laws and members.
+4.  **Top-Level Implications**: Condensed edges between the largest SCCs in the implication DAG.
+5.  **Special Theorems**: Inclusion of non-trivial manual results (e.g., E14 =&gt; Commutativity).
+
+## Results &amp; Analysis
+
+### Key Findings
+- **Clustering Effectiveness**: Over 1,500 equations are equivalent to the trivial law (x=y), and over 400 are equivalent to the constant law (x*y=z*w). This significant redundancy allows for high compression.
+- **Syntactic Regularity**: Most non-implications can be identified by variable distribution or term depth, provided the &#34;Absorption&#34; exception is handled.
+- **Duality**: Every magma law has a dual. Encoding this symmetry effectively doubles the reasoning capacity for a given cheatsheet size.
+
+### Statistical Analysis
+- **Graph Coverage**: The cheatsheet explicitly lists the representatives of the top 40 SCCs, covering over 50% of the simple laws by member count.
+- **Size Efficiency**: The final cheatsheet (9,156 bytes) is well within the 10,240-byte limit, leaving room for future refinement.
+
+## Conclusions
+The distillation of 22M implications into 10KB is feasible through semantic clustering and syntactic heuristic extraction. The resulting cheatsheet provides a robust framework for LLMs to reason about equational implications without needing a multi-million edge graph.
+
+## Next Steps
+- **Automated Verification**: Test the cheatsheet against a larger test set of &#34;hard&#34; implications.
+- **Pattern Compression**: Use Huffman coding or a more formal &#34;shorthand&#34; to include even more SCCs in the 10KB limit.
+- **Latent Space Mapping**: Incorporate coordinates from the &#34;latent space of equational theories&#34; to provide geometric intuition for implications.
+
+---
+*Mathematics Distillation Challenge - Stage 1 Submission*
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            RESEARCH PLAN
+════════════════════════════════════════════════════════════════════════════════
+
+# Research Planning: Mathematics Distillation Challenge
+
+## Motivation &amp; Novelty Assessment
+
+### Why This Research Matters
+Determining equational implications is a fundamental problem in universal algebra and automated theorem proving. The Equational Theories Project has generated a massive graph of 22M implications, but this knowledge is too large for efficient use in small language models or quick human reference. Distilling this into a 10KB &#34;cheatsheet&#34; is a significant step towards enabling compact, reliable mathematical reasoning in resource-constrained models.
+
+### Gap in Existing Work
+While high-performance automated theorem provers (ATPs) like Vampire or Prover9 can solve these problems, they are computationally heavy and not easily integrated into the prompt-based reasoning of LLMs. Current neural approaches (e.g., CNNs) for predicting implications are much larger than the 10KB limit. There is a missing link between the raw formal data of the ETP and a compact, human-interpretable (or LLM-interpretable) guide for reasoning.
+
+### Our Novel Contribution
+We propose a multi-layered cheatsheet that combines:
+1.  **Syntactic Pruning Rules**: Formal rules about variable distribution and term depth that eliminate obvious non-implications.
+2.  **Canonical Theory Clusters**: Grouping the 4,694 laws into clusters based on their semantic behavior (e.g., &#34;constant-like&#34;, &#34;idempotent-like&#34;) and defining implications between these clusters.
+3.  **Critical Implication Graph**: A highly compressed version of the most influential edges in the implication graph.
+4.  **Proof Heuristics**: Guidance on standard rewriting techniques (e.g., substitution strategies) for common magma identities.
+
+### Experiment Justification
+- **Experiment 1 (Syntactic Rule Extraction)**: We need to verify which syntactic rules (e.g., &#34;variables in RHS must be in LHS&#34;) are 100% reliable for magmas.
+- **Experiment 2 (Clustering &amp; Mapping)**: We will test if clustering equations by their &#34;strength&#34; (number of implications) allows for a hierarchical cheatsheet.
+- **Experiment 3 (Benchmark Validation)**: We will run the `implication_solver.py` on a sample of the 22M edges to identify &#34;hard&#34; cases where simple rules fail, and use these to refine the cheatsheet.
+
+## Research Question
+Can a 10KB cheatsheet of syntactic rules, theory clusters, and compressed implication subgraphs enable an LLM to accurately determine equational implications over magmas?
+
+## Hypothesis Decomposition
+1.  **H1 (Syntactic Sufficiency)**: A significant portion (~70%) of false implications can be identified by simple syntactic rules (variable check, depth bounds).
+2.  **H2 (Cluster Implication)**: Grouping laws into semantic categories allows for broad-stroke reasoning that handles the majority of true implications.
+3.  **H3 (Duality)**: Leveraging the duality of magma operations effectively halves the information needed in the cheatsheet.
+
+## Proposed Methodology
+
+### Approach
+We will analyze the `full_entries.json` and `equations.txt` to extract the most informative patterns. We will use `implication_solver.py` to generate &#34;hard&#34; samples (where order-3 countermodels or 2-depth proofs are insufficient) and prioritize these for explicit inclusion in the cheatsheet.
+
+### Experimental Steps
+1.  **Data Extraction**: Map Equation IDs to text and build a local adjacency list of the implication graph.
+2.  **Rule Mining**: Identify universal &#34;negative&#34; rules (if X then False) and &#34;positive&#34; rules (if Y then True).
+3.  **Compression**: Use Huffman-like or semantic compression to fit the most valuable information into 10KB.
+4.  **Validation**: Test the draft cheatsheet against a held-out set of implications.
+
+## Timeline and Milestones
+- Phase 1: Planning &amp; Motivation (Now)
+- Phase 2: Implementation - Rule Mining &amp; Data Analysis (30 min)
+- Phase 3: Analysis - Cheatsheet Construction (30 min)
+- Phase 4: Validation &amp; Refinement (30 min)
+- Phase 5: Final Documentation (10 min)
+
+## Success Criteria
+- A cheatsheet under 10,240 bytes.
+- Accuracy &gt; 90% on a balanced set of magma implications (E1-E4694).
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          LITERATURE REVIEW
+════════════════════════════════════════════════════════════════════════════════
+
+# Literature Review: Mathematics Distillation Challenge (Equational Theories)
+
+## Research Area Overview
+The **Equational Theories Project (ETP)**, led by Terence Tao, is a massive collaborative effort to map the implication graph between 4,694 simple equational laws on magmas. The primary result is a graph with over 22 million edges (implications). The current challenge focuses on **Mathematics Distillation**: reducing this knowledge into a 10KB &#34;cheatsheet&#34; to guide small LLMs in solving implication problems.
+
+## Key Definitions
+- **Magma**: A set $M$ with a binary operation $\diamond: M \times M \to M$.
+- **Equational Law**: An identity $t_1 = t_2$ involving variables and $\diamond$.
+- **Entailment ($E \models E&#39;$)**: Every magma satisfying $E$ also satisfies $E&#39;$.
+- **Order of a law**: Complexity measure (number of $\diamond$ operations).
+
+## Key Papers
+
+### 1. The Equational Theories Project: Advancing Collaborative Mathematical Research at Scale (arXiv:2512.07087)
+- **Authors**: Bolan et al. (2025)
+- **Contribution**: The foundational ETP paper. Formalized the 22M implications in Lean 4. Discusses the use of CNNs for implication prediction (99.7% accuracy) and the numbering system (E1-E4694).
+
+### 2. The latent space of equational theories (arXiv:2601.20759)
+- **Authors**: Berlioz and Melliès (2026)
+- **Contribution**: Defines a **latent space** for equational theories based on their behavior on finite magmas. Discovers that reasoning &#34;flows&#34; in an oriented way in this space.
+- **Relevance**: Suggests a statistical/geometric approach to distillation. A cheatsheet could potentially encode coordinates or clusters in this latent space.
+
+### 3. Twitch: Learning Abstractions for Equational Theorem Proving (arXiv:2603.06849)
+- **Authors**: Axelrod et al. (2026)
+- **Contribution**: Introduces **Twitch**, a tool that discovers recurring term patterns (abstractions) from proofs.
+- **Relevance**: Useful for identifying the &#34;interesting shapes&#34; of equations that indicate certain properties (e.g., associativity-like behavior).
+
+### 4. Learning Equational Theorem Proving (arXiv:2102.05547)
+- **Authors**: Piepenbrock et al. (2021)
+- **Contribution**: Uses **3SIL** (Imitation Learning) to solve equational proofs. Outperforms hand-engineered provers like *Waldmeister*.
+- **Relevance**: Demonstrates that imitation learning on proof steps is a viable way to &#34;distill&#34; theorem proving expertise into a neural model.
+
+## Known Results (Prerequisite Theorems)
+- **Duality**: $E_1 \models E_2 \iff E_1^* \models E_2^*$. This effectively doubles the training data and should be part of any cheatsheet.
+- **Trivial/Singleton Bounds**: E1 (weakest) and E2 (strongest) define the boundaries of the implication graph.
+- **Constant Law (E46)**: $x \diamond y = z \diamond w$ is extremely strong and implies almost everything.
+
+## Proof Techniques in the Literature
+- **Equational Reasoning**: Rewriting terms using substitution.
+- **Finite Model Finding**: Using **Mace4** to find counterexamples.
+- **Stone Pairing**: A technique for mapping theories to feature spaces (Berlioz &amp; Melliès).
+
+## Gaps and Opportunities
+- **10KB Bottleneck**: Most neural models (CNNs) for this task are 700KB+. Distilling this into 10KB of natural language or compressed rules is the primary research gap.
+- **Syntactic vs Semantic**: Berlioz shows that semantic behavior on finite magmas is a strong proxy for formal implication.
+
+## Recommendations for Cheatsheet Strategy
+1.  **Rule of Thumb for Variables**: &#34;If $E&#39;$ has variables not in $E$, it is likely false unless $E$ is a constant or singleton law.&#34;
+2.  **Cluster Descriptions**: Use the latent space findings to group equations into clusters (e.g., &#34;Associative-like&#34;, &#34;Idempotent-like&#34;).
+3.  **Pattern Recognition**: Include the &#34;Twitch&#34; abstractions—common term patterns that imply certain structural properties.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          PAPER REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+Generate a complete mathematics paper with the following structure:
+
+1. TITLE
+   - Clear, specific, informative
+   - Should convey the main result or the mathematical objects studied
+   - Mathematical convention: concise and precise
+
+2. AUTHOR
+   - Use this exact author line: Chenhao Tan and NeuriCo
+
+3. ABSTRACT (150-250 words)
+   - State the problem or question investigated
+   - Summarize the main results (theorem statements in words)
+   - Mention proof techniques used
+   - Note any computational verification
+
+4. INTRODUCTION
+   - Mathematical problem and motivation
+   - History and context of the problem
+   - Summary of known results (with citations)
+   - Statement of main contributions (informal preview)
+   - Paper organization
+
+5. PRELIMINARIES
+   - Notation and conventions
+   - Definitions needed for the paper
+   - Prerequisite results (stated with citations, not reproved)
+   - This section ensures the paper is self-contained
+
+6. MAIN RESULTS
+   - Formal theorem statements
+   - Complete proofs
+   - Supporting lemmas and propositions with proofs
+   - Examples illustrating the results
+   - Remarks connecting to other areas
+
+7. DISCUSSION
+   - Implications of the results
+   - Connections to related problems
+   - Open questions and conjectures
+   - Possible generalizations
+
+8. CONCLUSION
+   - Summary of contributions
+   - Future directions
+
+9. REFERENCES
+   - BibTeX format
+   - All cited papers and textbooks
+
+════════════════════════════════════════════════════════════════════════════════
+                          OUTPUT FORMAT
+════════════════════════════════════════════════════════════════════════════════
+
+Create a MODULAR LaTeX project with the following directory structure:
+
+paper_draft/
+├── main.tex              # Main file that imports all sections
+├── references.bib        # BibTeX references
+├── sections/
+│   ├── abstract.tex      # Abstract content
+│   ├── introduction.tex  # Introduction section
+│   ├── preliminaries.tex # Definitions, notation, prerequisites
+│   ├── main_results.tex  # Theorems and proofs
+│   ├── discussion.tex    # Discussion and open questions
+│   └── conclusion.tex    # Conclusion section
+├── figures/              # Directory for any generated figures
+└── appendix/             # Directory for appendix sections (if needed)
+
+INSTRUCTIONS:
+1. First, create the directory structure above (mkdir -p paper_draft/sections paper_draft/figures paper_draft/appendix)
+2. Write main.tex using the AMS document class with proper theorem environments:
+
+   \documentclass{amsart}
+   \usepackage{amsmath,amssymb,amsthm}
+   \usepackage[hidelinks]{hyperref}
+   \usepackage{graphicx}
+   \usepackage{enumitem}
+
+   % Theorem environments
+   \newtheorem{theorem}{Theorem}[section]
+   \newtheorem{lemma}[theorem]{Lemma}
+   \newtheorem{proposition}[theorem]{Proposition}
+   \newtheorem{corollary}[theorem]{Corollary}
+   \newtheorem{conjecture}[theorem]{Conjecture}
+
+   \theoremstyle{definition}
+   \newtheorem{definition}[theorem]{Definition}
+   \newtheorem{example}[theorem]{Example}
+
+   \theoremstyle{remark}
+   \newtheorem{remark}[theorem]{Remark}
+
+   % Import command files (if they exist)
+   \InputIfFileExists{commands/math}{}{}
+   \InputIfFileExists{commands/general}{}{}
+   \InputIfFileExists{commands/macros}{}{}
+
+   % Bibliography style
+   \bibliographystyle{amsplain}
+
+   \author{Chenhao Tan and NeuriCo}
+
+   - Use \input{sections/...} to include each section
+   - Use \bibliography{references} for references
+3. Write each section file with COMPLETE content (no placeholders)
+4. Each section file should include its \section{} command
+5. Write references.bib with all citations in BibTeX format
+6. After writing all files, compile the paper:
+   cd paper_draft && pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+
+NOTE ON DOCUMENT CLASS:
+- Use \documentclass{amsart} (NOT \documentclass{article} with \usepackage{style})
+- The amsart class is part of the standard LaTeX distribution — no .sty file needed
+- It provides proper formatting for mathematical papers: theorem numbering,
+  proof environments, AMS math fonts, and standard math journal layout
+
+This modular structure allows humans to easily:
+- Edit individual sections without navigating a large file
+- Track changes per section
+- Reuse sections across different paper versions
+
+════════════════════════════════════════════════════════════════════════════════
+                          QUALITY REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+- Academic mathematical tone throughout
+- Every theorem must have a complete proof
+- All definitions must be precise and unambiguous
+- Proper citations using \cite{} commands
+- NO placeholder text - every section must have real content
+- The paper MUST compile without errors
+- If compilation fails, debug and fix the LaTeX errors
+
+════════════════════════════════════════════════════════════════════════════════
+                       MATHEMATICAL WRITING STYLE
+════════════════════════════════════════════════════════════════════════════════
+
+Follow these conventions for mathematical papers:
+
+1. LANGUAGE STYLE:
+   - Use "we" for collaborative exposition: "We prove", "We show", "We define"
+   - Be precise and direct: state results clearly before proving them
+   - Prefer plain language: "We now prove..." over "We shall henceforth demonstrate..."
+   - Use the present tense for mathematical facts: "Theorem 1 shows..."
+   - Avoid vague language: instead of "clearly" or "obviously", explain why
+
+2. INTRODUCTION STRUCTURE:
+   - Context and motivation (why this problem matters)
+   - History (what's known, with citations)
+   - Statement of results (informal but precise)
+   - Proof techniques (brief overview of methods)
+   - Paper organization (roadmap)
+
+3. THEOREM ENVIRONMENTS:
+   Use proper LaTeX theorem environments:
+   \begin{theorem}\label{thm:main}
+     Let $G$ be a graph with $n$ vertices. Then...
+   \end{theorem}
+
+   \begin{proof}
+     We proceed by induction on $n$. ...
+   \end{proof}
+
+4. DEFINITIONS:
+   \begin{definition}\label{def:widget}
+     A \emph{widget} is a pair $(X, \tau)$ where...
+   \end{definition}
+
+   - Italicize the term being defined using \emph{}
+   - State all conditions explicitly
+   - Give examples immediately after non-trivial definitions
+
+5. PROOF STRUCTURE:
+   - Begin with proof strategy: "The proof proceeds in two steps..."
+   - Number or label key claims within proofs
+   - Use \qedhere for proofs ending in displayed equations
+   - Signal transitions: "It remains to show...", "We now verify..."
+
+6. NOTATION CONVENTIONS:
+   - Define all notation in Preliminaries
+   - Use standard notation: $\mathbb{R}$, $\mathbb{Z}$, $\mathbb{N}$
+   - Use \coloneqq or := for definitions
+   - Be consistent: one symbol = one meaning throughout
+
+7. MATHEMATICAL FORMATTING:
+   - Displayed equations for important formulas: \[ ... \]
+   - Inline math for brief expressions: $...$
+   - Use align environment for multi-line equations
+   - Number only equations that are referenced later
+
+8. REFERENCES AND CITATIONS:
+   - Cite prior results when used: "By \cite{author2024}..."
+   - Distinguish between "Theorem 3 of \cite{...}" and your own results
+   - Include both classic references and recent work
+
+9. EXAMPLES AND COUNTEREXAMPLES:
+   - Illustrate each major result with a concrete example
+   - Show tightness: counterexamples demonstrating necessity of hypotheses
+   - Use \begin{example} ... \end{example} environment
+
+10. FIGURES (if applicable):
+    - Diagrams for geometric arguments
+    - Graphs or plots from computational verification
+    - Commutative diagrams for algebraic results
+    - Use TikZ or include pre-generated figures
+
+════════════════════════════════════════════════════════════════════════════════
+                          WORKFLOW: REVIEW AND REFLECT
+════════════════════════════════════════════════════════════════════════════════
+
+Before calling finish, you MUST complete these review steps:
+
+1. REVIEW RESOURCES (at the start):
+   - Read .gemini/skills/paper-writer/SKILL.md for detailed guidance
+   - Study templates/paper_writing/lab_style_guide.md for style conventions
+   - Skim paper_draft/example_paper.tex for amsart LaTeX conventions only
+   - Browse paper_examples/ for language patterns (if available)
+
+2. SELF-REFLECTION (before finishing):
+   After writing all sections, review your work against these criteria:
+
+   MATHEMATICAL CONTENT CHECK:
+   - [ ] Every theorem has a complete, rigorous proof
+   - [ ] All definitions are precise with explicit quantifiers
+   - [ ] Examples illustrate major results
+   - [ ] Counterexamples show necessity of hypotheses where applicable
+   - [ ] Notation is consistent throughout
+
+   FORMATTING CHECK:
+   - [ ] Theorem environments (\begin{theorem}...\end{theorem}) used properly
+   - [ ] Proof environments (\begin{proof}...\end{proof}) used for all proofs
+   - [ ] Is hyperref package included for clickable references?
+   - [ ] Labels and cross-references work correctly
+   - [ ] Bibliography entries are complete
+
+   STRUCTURE CHECK:
+   - [ ] Introduction previews main results clearly
+   - [ ] Preliminaries section makes the paper self-contained
+   - [ ] Results are ordered logically (lemmas before theorems that use them)
+   - [ ] Does the paper compile without errors?
+
+3. FIX ISSUES:
+   - Address any issues found in the self-reflection
+   - Re-compile and verify the PDF looks correct
+
+Only after completing this review should you consider the paper finished.

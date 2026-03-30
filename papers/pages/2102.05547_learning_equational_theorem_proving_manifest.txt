@@ -1,0 +1,22 @@
+PDF: papers/2102.05547_learning_equational_theorem_proving.pdf
+Total pages: 17
+Pages per chunk: 1
+
+Chunks:
+  2102.05547_learning_equational_theorem_proving_chunk_001.pdf: page 1
+  2102.05547_learning_equational_theorem_proving_chunk_002.pdf: page 2
+  2102.05547_learning_equational_theorem_proving_chunk_003.pdf: page 3
+  2102.05547_learning_equational_theorem_proving_chunk_004.pdf: page 4
+  2102.05547_learning_equational_theorem_proving_chunk_005.pdf: page 5
+  2102.05547_learning_equational_theorem_proving_chunk_006.pdf: page 6
+  2102.05547_learning_equational_theorem_proving_chunk_007.pdf: page 7
+  2102.05547_learning_equational_theorem_proving_chunk_008.pdf: page 8
+  2102.05547_learning_equational_theorem_proving_chunk_009.pdf: page 9
+  2102.05547_learning_equational_theorem_proving_chunk_010.pdf: page 10
+  2102.05547_learning_equational_theorem_proving_chunk_011.pdf: page 11
+  2102.05547_learning_equational_theorem_proving_chunk_012.pdf: page 12
+  2102.05547_learning_equational_theorem_proving_chunk_013.pdf: page 13
+  2102.05547_learning_equational_theorem_proving_chunk_014.pdf: page 14
+  2102.05547_learning_equational_theorem_proving_chunk_015.pdf: page 15
+  2102.05547_learning_equational_theorem_proving_chunk_016.pdf: page 16
+  2102.05547_learning_equational_theorem_proving_chunk_017.pdf: page 17

@@ -1,0 +1,105 @@
+{
+  "top_strong": [
+    {
+      "id": 428,
+      "eq": "x = x * (y * (x * (x * z)))",
+      "strength": 39
+    },
+    {
+      "id": 3108,
+      "eq": "x = (((y * x) * x) * z) * x",
+      "strength": 39
+    },
+    {
+      "id": 41,
+      "eq": "x * x = y * z",
+      "strength": 35
+    },
+    {
+      "id": 2,
+      "eq": "x = y",
+      "strength": 25
+    },
+    {
+      "id": 4176,
+      "eq": "x * y = ((y * z) * x) * z",
+      "strength": 24
+    },
+    {
+      "id": 522,
+      "eq": "x = y * (y * (z * (x * z)))",
+      "strength": 22
+    },
+    {
+      "id": 3,
+      "eq": "x = x * x",
+      "strength": 19
+    },
+    {
+      "id": 9,
+      "eq": "x = x * (x * y)",
+      "strength": 19
+    },
+    {
+      "id": 380,
+      "eq": "x * y = (x * z) * x",
+      "strength": 15
+    },
+    {
+      "id": 3811,
+      "eq": "x * y = (z * y) * (z * y)",
+      "strength": 14
+    },
+    {
+      "id": 46,
+      "eq": "x * y = z * w",
+      "strength": 13
+    },
+    {
+      "id": 5,
+      "eq": "x = y * x",
+      "strength": 12
+    },
+    {
+      "id": 1628,
+      "eq": "x = (y * z) * (w * (u * v))",
+      "strength": 12
+    },
+    {
+      "id": 2643,
+      "eq": "x = (y * ((z * w) * u)) * v",
+      "strength": 12
+    },
+    {
+      "id": 3810,
+      "eq": "x * y = (z * y) * (z * x)",
+      "strength": 12
+    },
+    {
+      "id": 3159,
+      "eq": "x = (((y * y) * z) * x) * x",
+      "strength": 12
+    },
+    {
+      "id": 14,
+      "eq": "x = y * (x * y)",
+      "strength": 11
+    },
+    {
+      "id": 387,
+      "eq": "x * y = (y * y) * x",
+      "strength": 11
+    },
+    {
+      "id": 4578,
+      "eq": "x * (y * z) = (w * u) * y",
+      "strength": 11
+    },
+    {
+      "id": 1222,
+      "eq": "x = y * ((z * (w * u)) * v)",
+      "strength": 11
+    }
+  ],
+  "implications_count": 10669
+}

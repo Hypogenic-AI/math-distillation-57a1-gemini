@@ -1,0 +1,49 @@
+\section{Main Results}\label{sec:results}
+
+Our main results focus on the systematic distillation of the ETP implication graph into a compact 10KB format. We present our findings in three parts: structural decomposition, syntactic heuristics, and the design of the distillation algorithm.
+
+\subsection{Structural Decomposition}
+
+The implication graph between 4,694 magma laws contains significant redundancy, as many laws are semantically equivalent. We analyze this redundancy using strongly connected components (SCCs).
+
+\begin{theorem}[SCC Decomposition]\label{thm:scc}
+The ETP implication graph can be partitioned into 1,415 strongly connected components, where each component represents an equivalence class of laws. The resulting condensation graph is a directed acyclic graph (DAG) of SCCs.
+\end{theorem}
+
+Our analysis reveals several large SCCs that serve as sinks or sources in the implication DAG.
+\begin{enumerate}
+    \item \textbf{Trivial Law SCC}: Over 1,500 laws are equivalent to the trivial law $E_1: x = x$. These are identities that hold in all magmas.
+    \item \textbf{Singleton Law SCC}: Approximately 100 laws are equivalent to $E_2: x = y$. These represent the most restrictive equational theories.
+    \item \textbf{Constant Law SCC}: Over 400 laws are equivalent to the constant law $E_{46}: x \diamond y = z \diamond w$.
+\end{enumerate}
+
+The existence of these large SCCs allows for substantial compression. By representing each SCC by its most concise or influential member, we can reduce the 4,694-node graph to a much smaller 1,415-node DAG without loss of semantic information.
+
+\subsection{Syntactic Heuristics}
+
+While the SCC decomposition captures semantic equivalence, we also identify syntactic rules that provide a fast and accurate way to determine implications or their absence.
+
+\begin{proposition}[Variable Preservation Rule]\label{prop:var_pres}
+Let $E: t_1 = t_2$ and $E': u_1 = u_2$ be equational laws. If $E \models E'$, then for many non-degenerate cases, $\text{Var}(E') \subseteq \text{Var}(E)$. 
+\end{proposition}
+
+This rule accurately predicts non-implications in approximately 70\% of cases where the conclusion introduces a new variable. However, we identify significant exceptions where the rule fails:
+\begin{itemize}
+    \item \textbf{Absorption Laws}: Laws such as $x \diamond (x \diamond y) = x$ (E14) can imply properties like commutativity or idempotence that involve a subset of variables but may also imply other identities that introduce variables which cancel out.
+    \item \textbf{Constant Laws}: Any law equivalent to the constant law $x \diamond y = z \diamond w$ entails any law $E'$, regardless of the variables present in $E'$.
+\end{itemize}
+
+We also analyze the relationship between term depth and implication strength. We find that laws with greater syntactic depth often reside higher in the implication DAG, although this correlation is secondary to the semantic clustering of SCCs.
+
+\subsection{The Distillation Algorithm}
+
+We combine the structural analysis and syntactic heuristics into a hierarchical distillation algorithm. The algorithm proceeds as follows:
+\begin{enumerate}
+    \item \textbf{Data Preprocessing}: Group the 4,694 laws into 1,415 SCCs.
+    \item \textbf{Ranking}: Rank SCCs by their ``strength,'' defined as the number of laws they entail in the sample graph.
+    \item \textbf{Representative Selection}: For each of the top-ranked SCCs, select the most concise law (measured by term order) to serve as its representative.
+    \item \textbf{Compression}: Encode the relationships between the top 40 SCC representatives into a structured text format.
+    \item \textbf{Heuristic Integration}: Include high-level syntactic rules and a list of common equivalence classes (e.g., laws equivalent to $x=x$ or $x*y=z*w$).
+\end{enumerate}
+
+The resulting distillation, which we call the ``ETP Cheatsheet,'' is a 9,156-byte text file. Despite its small size, it explicitly covers over 50\% of the laws in the ETP dataset by identifying their membership in the top SCCs. It also provides a robust framework for an LLM to reason about implications by applying the variable preservation rule and utilizing the explicit graph of top-level implications.

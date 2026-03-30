@@ -1,0 +1,160 @@
+[
+  {
+    "e1": "x = x*y",
+    "e2": "x = x*x",
+    "label": true,
+    "prediction": true,
+    "correct": true,
+    "mode": "bounded_derivation",
+    "runtime_sec": 0.08453417010605335,
+    "note": "Substitute y:=x",
+    "countermodel": null
+  },
+  {
+    "e1": "x = y*x",
+    "e2": "x = x*x",
+    "label": true,
+    "prediction": true,
+    "correct": true,
+    "mode": "bounded_derivation",
+    "runtime_sec": 0.08335940167307854,
+    "note": "Substitute y:=x",
+    "countermodel": null
+  },
+  {
+    "e1": "x*y = x",
+    "e2": "x*x = x",
+    "label": true,
+    "prediction": true,
+    "correct": true,
+    "mode": "bounded_derivation",
+    "runtime_sec": 0.08290440402925014,
+    "note": "Substitute y:=x",
+    "countermodel": null
+  },
+  {
+    "e1": "x*y = y",
+    "e2": "x*x = x",
+    "label": true,
+    "prediction": true,
+    "correct": true,
+    "mode": "bounded_derivation",
+    "runtime_sec": 0.08305228315293789,
+    "note": "Substitute y:=x",
+    "countermodel": null
+  },
+  {
+    "e1": "x*(y*z) = (x*y)*z",
+    "e2": "(x*x)*x = x*(x*x)",
+    "label": true,
+    "prediction": true,
+    "correct": true,
+    "mode": "bounded_derivation",
+    "runtime_sec": 0.21621778048574924,
+    "note": "Associativity instance",
+    "countermodel": null
+  },
+  {
+    "e1": "x = y",
+    "e2": "x*x = y*y",
+    "label": true,
+    "prediction": true,
+    "correct": true,
+    "mode": "no_countermodel_up_to_bound",
+    "runtime_sec": 0.0729677826166153,
+    "note": "Congruence",
+    "countermodel": null
+  },
+  {
+    "e1": "x*x = x",
+    "e2": "x*y = x",
+    "label": false,
+    "prediction": false,
+    "correct": true,
+    "mode": "countermodel",
+    "runtime_sec": 4.087015986442566e-05,
+    "note": "Idempotent does not force left projection",
+    "countermodel": {
+      "order": 2,
+      "table": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "e1": "x*y = y*x",
+    "e2": "x*y = x",
+    "label": false,
+    "prediction": false,
+    "correct": true,
+    "mode": "countermodel",
+    "runtime_sec": 3.864988684654236e-05,
+    "note": "Commutative does not force left projection",
+    "countermodel": {
+      "order": 2,
+      "table": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "e1": "(x*y)*z = x*(y*z)",
+    "e2": "x*y = x",
+    "label": false,
+    "prediction": false,
+    "correct": true,
+    "mode": "countermodel",
+    "runtime_sec": 5.6371092796325684e-05,
+    "note": "Associativity does not force left projection",
+    "countermodel": {
+      "order": 2,
+      "table": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "e1": "x*y = x",
+    "e2": "x = y*x",
+    "label": false,
+    "prediction": false,
+    "correct": true,
+    "mode": "countermodel",
+    "runtime_sec": 5.241855978965759e-05,
+    "note": "Left projection does not imply x=y",
+    "countermodel": {
+      "order": 2,
+      "table": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  }
+]

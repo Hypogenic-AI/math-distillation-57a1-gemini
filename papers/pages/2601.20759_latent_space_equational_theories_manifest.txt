@@ -1,0 +1,17 @@
+PDF: papers/2601.20759_latent_space_equational_theories.pdf
+Total pages: 12
+Pages per chunk: 1
+
+Chunks:
+  2601.20759_latent_space_equational_theories_chunk_001.pdf: page 1
+  2601.20759_latent_space_equational_theories_chunk_002.pdf: page 2
+  2601.20759_latent_space_equational_theories_chunk_003.pdf: page 3
+  2601.20759_latent_space_equational_theories_chunk_004.pdf: page 4
+  2601.20759_latent_space_equational_theories_chunk_005.pdf: page 5
+  2601.20759_latent_space_equational_theories_chunk_006.pdf: page 6
+  2601.20759_latent_space_equational_theories_chunk_007.pdf: page 7
+  2601.20759_latent_space_equational_theories_chunk_008.pdf: page 8
+  2601.20759_latent_space_equational_theories_chunk_009.pdf: page 9
+  2601.20759_latent_space_equational_theories_chunk_010.pdf: page 10
+  2601.20759_latent_space_equational_theories_chunk_011.pdf: page 11
+  2601.20759_latent_space_equational_theories_chunk_012.pdf: page 12

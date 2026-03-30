@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-03-30T02:46:30.059814",
+  "stages": {
+    "resource_finder": {
+      "status": "completed",
+      "started_at": "2026-03-30T02:46:30.209595",
+      "completed_at": "2026-03-30T03:01:58.628824",
+      "success": true,
+      "outputs": {
+        "literature_review": "/workspaces/math-distillation-57a1-gemini/literature_review.md",
+        "resources_catalog": "/workspaces/math-distillation-57a1-gemini/resources.md",
+        "papers_dir": "/workspaces/math-distillation-57a1-gemini/papers",
+        "code_dir": "/workspaces/math-distillation-57a1-gemini/code"
+      }
+    },
+    "experiment_runner": {
+      "status": "completed",
+      "started_at": "2026-03-30T03:01:58.629146",
+      "completed_at": "2026-03-30T03:10:09.726540",
+      "success": true,
+      "outputs": {
+        "success": true,
+        "return_code": 0,
+        "elapsed_time": 491.0868151187897,
+        "log_file": "/workspaces/math-distillation-57a1-gemini/logs/execution_gemini.log",
+        "transcript_file": "/workspaces/math-distillation-57a1-gemini/logs/execution_gemini_transcript.jsonl"
+      }
+    }
+  },
+  "current_stage": null,
+  "completed": true,
+  "completed_at": "2026-03-30T03:10:09.729663"
+}

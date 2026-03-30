@@ -1,0 +1,52 @@
+\section{Preliminaries}\label{sec:prelim}
+
+In this section, we provide the necessary definitions and notation for the study of equational theories of magmas. We follow the terminology and numbering system established by the Equational Theories Project \cite{bolan2025etp}.
+
+\subsection{Magmas and Equational Laws}
+
+\begin{definition}\label{def:magma}
+A \emph{magma} $(M, \diamond)$ is a set $M$ together with a binary operation $\diamond: M \times M \to M$.
+\end{definition}
+
+In this paper, we consider equational laws on magmas, which are identities of the form $t_1 = t_2$, where $t_1$ and $t_2$ are terms built from variables and the magma operation $\diamond$. We denote the set of variables appearing in a term $t$ as $\text{Var}(t)$.
+
+\begin{definition}\label{def:law}
+An \emph{equational law} $E$ is an identity $t_1 = t_2$ that is satisfied by a magma $(M, \diamond)$ if for every assignment of variables to elements of $M$, the equality $t_1 = t_2$ holds.
+\end{definition}
+
+The ETP considers 4,694 simple equational laws, which are indexed as $E_1, E_2, \dots, E_{4694}$. These laws vary in complexity, ranging from the trivial law $E_1: x = x$ to more complex identities involving nested operations.
+
+\subsection{Entailment and Duality}
+
+\begin{definition}\label{def:entailment}
+An equational law $E$ \emph{entails} another law $E'$, denoted $E \models E'$, if every magma that satisfies $E$ also satisfies $E'$.
+\end{definition}
+
+The implication graph of the ETP consists of all such entailments. If $E \models E'$ and $E' \models E$, the two laws are said to be \emph{equivalent}, denoted $E \equiv E'$.
+
+\begin{definition}\label{def:duality}
+For any magma term $t$, its \emph{dual} $t^*$ is defined inductively:
+\begin{enumerate}
+    \item $x^* = x$ for any variable $x$.
+    \item $(u \diamond v)^* = v^* \diamond u^*$.
+\end{enumerate}
+For an equational law $E: t_1 = t_2$, its dual law $E^*$ is defined as $t_1^* = t_2^*$.
+\end{definition}
+
+Duality is a fundamental symmetry in magma theory, leading to the following well-known result:
+
+\begin{theorem}[Duality Theorem]\label{thm:duality}
+$E \models E' \iff E^* \models E'^*$.
+\end{theorem}
+
+This theorem allows us to effectively double the number of implications in our distillation by considering only one member of each dual pair $(E, E^*)$.
+
+\subsection{Notable Laws}
+
+Several laws in the ETP serve as useful landmarks in the implication graph:
+\begin{itemize}
+    \item \textbf{Trivial Law ($E_1$)}: $x = x$, the weakest law, which is entailed by every other law.
+    \item \textbf{Singleton Law ($E_2$)}: $x = y$, the strongest law, which entails every other law and implies that the magma has at most one element.
+    \item \textbf{Constant Law ($E_{46}$)}: $x \diamond y = z \diamond w$, a very strong law implying that all products in the magma are equal to a single constant.
+\end{itemize}
+These laws represent the boundaries of the theory space and are essential for grounding our distillation.

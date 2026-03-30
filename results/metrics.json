@@ -1,0 +1,17 @@
+{
+  "n_cases": 10,
+  "accuracy": 1.0,
+  "accuracy_wilson_95": [
+    0.7224598312333834,
+    1.0
+  ],
+  "mean_runtime_sec": 0.06232241317629814,
+  "median_runtime_sec": 0.07793609332293272,
+  "baseline_always_true_accuracy": 0.6,
+  "baseline_countermodel_only_accuracy": 1.0,
+  "evidence_mode_counts": {
+    "countermodel": 4,
+    "bounded_derivation": 5,
+    "no_countermodel_up_to_bound": 1
+  }
+}

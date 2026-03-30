@@ -1,0 +1,17 @@
+\section{Introduction}
+
+The landscape of modern collaborative mathematics has been transformed by large-scale projects such as the Equational Theories Project (ETP), led by Terence Tao \cite{bolan2025etp}. By mapping the implication graph between 4,694 simple equational laws on magmas, the ETP has generated a massive repository of algebraic knowledge containing over 22 million implications. This data-driven approach to universal algebra has provided unprecedented insights into the structure of equational theories and their properties.
+
+However, a significant challenge remains: {\bf how can we effectively utilize this massive repository of knowledge in resource-constrained environments?} While high-performance automated theorem provers (ATPs) and large-scale graph databases can process this information, they are not easily integrated into the prompt-based reasoning of large language models (LLMs) or used as a compact reference for human researchers. Current neural approaches for predicting implications, while accurate, often require hundreds of kilobytes or even megabytes of storage, far exceeding the context windows and size constraints of many practical applications.
+
+There is a growing interest in the \emph{distillation} of mathematical knowledge—the process of reducing complex, large-scale information into its most essential and informative components. In the context of the ETP, this means identifying the core structural properties and syntactic rules that govern equational implications and compressing them into a format that is both human-readable and machine-processable.
+
+In this paper, we propose a multi-layered approach to the distillation of the ETP implication graph into a 10KB ``cheatsheet.'' Our method combines structural analysis, syntactic rule mining, and algebraic symmetry. Our main contributions are as follows:
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=2pt]
+    \item We perform a structural decomposition of the 4,694-law implication graph, identifying 1,415 strongly connected components (SCCs) that partition the laws into equivalence classes.
+    \item We formalize syntactic heuristics, such as the variable-preservation rule and term-depth bounds, which accurately predict a significant majority of non-implications.
+    \item We design and implement a hierarchical distillation algorithm that compresses the implication graph into a 9.1KB guide, covering over 50\% of the laws in the dataset.
+    \item We leverage algebraic duality to effectively double the information density of our compact representation.
+\end{itemize}
+
+The remainder of this paper is organized as follows. Section \ref{sec:prelim} provides the necessary definitions and notation. Section \ref{sec:results} presents our main results on the structural decomposition of the graph and the extraction of syntactic heuristics. In Section \ref{sec:discussion}, we discuss the implications of our work and Section \ref{sec:conclusion} concludes.
