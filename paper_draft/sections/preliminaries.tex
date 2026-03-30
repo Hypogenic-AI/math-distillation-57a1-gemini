@@ -1,52 +1,38 @@
-\section{Preliminaries}\label{sec:prelim}
+\section{Preliminaries}
 
-In this section, we provide the necessary definitions and notation for the study of equational theories of magmas. We follow the terminology and numbering system established by the Equational Theories Project \cite{bolan2025etp}.
-
-\subsection{Magmas and Equational Laws}
-
-\begin{definition}\label{def:magma}
-A \emph{magma} $(M, \diamond)$ is a set $M$ together with a binary operation $\diamond: M \times M \to M$.
+\begin{definition}[Magma and terms]\label{def:magma-term}
+A \emph{magma} is a pair $(M,\ast)$ where $M\neq\varnothing$ and $\ast\colon M\times M\to M$ is a binary operation. A \emph{term} is built from variables in a set $\mathcal V$ using the binary symbol $\ast$, and an \emph{equation} is an identity $s=t$ between two terms.
 \end{definition}
 
-In this paper, we consider equational laws on magmas, which are identities of the form $t_1 = t_2$, where $t_1$ and $t_2$ are terms built from variables and the magma operation $\diamond$. We denote the set of variables appearing in a term $t$ as $\text{Var}(t)$.
-
-\begin{definition}\label{def:law}
-An \emph{equational law} $E$ is an identity $t_1 = t_2$ that is satisfied by a magma $(M, \diamond)$ if for every assignment of variables to elements of $M$, the equality $t_1 = t_2$ holds.
+\begin{definition}[Satisfaction and implication]\label{def:satisfaction}
+Let $A=(M,\ast)$ be a magma and let $E$ be an equation. We write $A\models E$ if for every variable assignment $\sigma\colon\mathcal V\to M$, both sides of $E$ evaluate equally in $A$. For equations $E_1,E_2$, we write
+\[
+E_1\models E_2
+\]
+if every magma satisfying $E_1$ also satisfies $E_2$.
 \end{definition}
 
-The ETP considers 4,694 simple equational laws, which are indexed as $E_1, E_2, \dots, E_{4694}$. These laws vary in complexity, ranging from the trivial law $E_1: x = x$ to more complex identities involving nested operations.
-
-\subsection{Entailment and Duality}
-
-\begin{definition}\label{def:entailment}
-An equational law $E$ \emph{entails} another law $E'$, denoted $E \models E'$, if every magma that satisfies $E$ also satisfies $E'$.
+\begin{definition}[Countermodel]\label{def:countermodel}
+A \emph{countermodel} to $E_1\models E_2$ is a magma $A$ such that $A\models E_1$ and $A\not\models E_2$.
 \end{definition}
 
-The implication graph of the ETP consists of all such entailments. If $E \models E'$ and $E' \models E$, the two laws are said to be \emph{equivalent}, denoted $E \equiv E'$.
+These are standard notions in equational logic and finite-model search~\cite{mccune2003mace4,bolan2025etp}.
 
-\begin{definition}\label{def:duality}
-For any magma term $t$, its \emph{dual} $t^*$ is defined inductively:
-\begin{enumerate}
-    \item $x^* = x$ for any variable $x$.
-    \item $(u \diamond v)^* = v^* \diamond u^*$.
+\begin{definition}[Implemented Stage-1 policy]\label{def:policy}
+For a query $(E_1,E_2)$, the solver with parameters
+\[
+\texttt{max\_order}=3,\qquad \texttt{max\_depth}=2,\qquad \texttt{sub\_limit}=8
+\]
+applies the following rule:
+\begin{enumerate}[leftmargin=*]
+\item Search all magma tables of orders $1,2,3$. If one satisfies $E_1$ and refutes $E_2$, output \texttt{false} and record the witness.
+\item If no witness is found, run bounded derivation from substitution instances of $E_1$. If $E_2$ is reached, output \texttt{true}.
+\item Otherwise output \texttt{true} with mode \texttt{no\_countermodel\_up\_to\_bound}.
 \end{enumerate}
-For an equational law $E: t_1 = t_2$, its dual law $E^*$ is defined as $t_1^* = t_2^*$.
 \end{definition}
 
-Duality is a fundamental symmetry in magma theory, leading to the following well-known result:
+\begin{remark}\label{rem:scope}
+Definition~\ref{def:policy} is a Stage-1 operational policy, not a complete decision procedure for universal implication over all magmas. Failure to find a small countermodel does not imply semantic entailment.
+\end{remark}
 
-\begin{theorem}[Duality Theorem]\label{thm:duality}
-$E \models E' \iff E^* \models E'^*$.
-\end{theorem}
-
-This theorem allows us to effectively double the number of implications in our distillation by considering only one member of each dual pair $(E, E^*)$.
-
-\subsection{Notable Laws}
-
-Several laws in the ETP serve as useful landmarks in the implication graph:
-\begin{itemize}
-    \item \textbf{Trivial Law ($E_1$)}: $x = x$, the weakest law, which is entailed by every other law.
-    \item \textbf{Singleton Law ($E_2$)}: $x = y$, the strongest law, which entails every other law and implies that the magma has at most one element.
-    \item \textbf{Constant Law ($E_{46}$)}: $x \diamond y = z \diamond w$, a very strong law implying that all products in the magma are equal to a single constant.
-\end{itemize}
-These laws represent the boundaries of the theory space and are essential for grounding our distillation.
+The curated evaluation benchmark contains ten labeled implication pairs (six positives and four negatives). Reported metrics are accuracy, Wilson confidence interval, per-query runtime, and evidence-mode counts.

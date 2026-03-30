@@ -1,25 +1,25 @@
-\section{Discussion}\label{sec:discussion}
+\section{Discussion}
 
-Our systematic distillation of the ETP implication graph into a 10KB format highlights several key aspects of mathematical knowledge representation. In this section, we discuss the trade-offs between compactness and accuracy, the role of LLMs in mathematical reasoning, and the limitations of our current approach.
+The empirical behavior supports a practical interpretation of the hybrid policy. Small finite-model search is the dominant falsification mechanism: all four negative cases are refuted with order-$2$ witnesses (Lemma~\ref{lem:order2}), consistent with model-finding intuition from automated reasoning~\cite{mccune2003mace4}. This makes the countermodel branch a strong first filter for Stage-1 implication queries.
 
-\subsection{Size and Accuracy Trade-offs}
+Bounded derivation improves interpretability on positive cases by producing symbolic evidence in five of six true labels. The remaining true case, $x=y\Rightarrow x\ast x=y\ast y$, is decided by fallback instead of explicit derivation. This identifies a concrete gap in the current derivation closure and motivates lightweight congruence-complete upgrades.
 
-The primary constraint of our study was the 10KB limit, which required us to be highly selective about which information to include. While our cheatsheet covers over 50\% of the ETP laws by member count, it is not an exhaustive record of all 22 million implications. Our analysis shows that a significant portion of these implications are either redundant or predictable through simple syntactic heuristics. 
+The broader context is complementary to recent literature. High-capacity predictive systems for equational implication~\cite{piepenbrock2021learning,axelrod2026twitch} and large ETP-scale analyses~\cite{bolan2025etp,berlioz2026latent} target coverage and representation power. Our objective is narrower: a transparent, reproducible, strict-boolean Stage-1 baseline under tight runtime and implementation constraints.
 
-The decision to focus on the top 40 SCCs was motivated by our finding that the strength of an SCC (measured by the number of laws it entails) follows a power-law distribution. This suggests that a small number of core theories capture the majority of the interesting behavior in the implication graph. However, this also means that our distillation is less effective at predicting implications between rare or highly specialized theories.
+The main limitations are:
+\begin{enumerate}[leftmargin=*]
+\item small benchmark size (ten cases), yielding wide confidence bounds despite perfect observed accuracy;
+\item finite search bound \texttt{max\_order}=3, which cannot prove implication when no witness is found;
+\item intentionally incomplete derivation module.
+\end{enumerate}
 
-\subsection{LLM Reasoning and Mathematical Knowledge}
+These limitations yield natural open questions.
+\begin{conjecture}
+A substantial fraction of ETP-style non-implications admit witnesses of order at most $3$.
+\end{conjecture}
 
-LLMs have demonstrated a surprising capacity for mathematical reasoning, but they often struggle with formal logic when not provided with sufficient context \cite{bolan2025etp}. Our results suggest that a compact distillation of a formal knowledge base can significantly enhance an LLM's ability to reason about equational theories. 
+\begin{conjecture}
+A minimal congruence-complete derivation extension can remove most fallback-true cases without materially increasing latency.
+\end{conjecture}
 
-The inclusion of syntactic heuristics, such as the variable-preservation rule and its exceptions (e.g., absorption and constant laws), provides a set of high-level constraints that can guide the model's predictions. This combines the strengths of statistical pattern matching with the precision of formal rules, offering a promising path toward more reliable mathematical AI systems.
-
-\subsection{Latent Space and Geometric Intuition}
-
-Recent work by Berlioz and Melliès \cite{berlioz2026latent} suggests that equational theories can be mapped into a continuous latent space where implications correspond to oriented flows. Our current distillation is primarily based on discrete graph-theoretic and syntactic analysis. A potential direction for improvement would be to incorporate coordinates or cluster labels from this latent space into the cheatsheet. This could provide a geometric intuition for implications that is difficult to capture through discrete rules alone.
-
-\subsection{Limitations and Open Questions}
-
-Despite its effectiveness, our 10KB distillation has clear limitations. First, our syntactic heuristics are not universal. While the variable preservation rule is highly accurate for most magmas, it can fail for more complex identities or in the presence of strong algebraic properties. Second, our distillation does not include the proofs themselves. For an LLM to generate formal proofs in Lean or other proof assistants, a larger and more detailed knowledge base may be required.
-
-Future research should explore more sophisticated compression techniques, such as Huffman coding or formal shorthand, to fit more information into the 10KB limit. Additionally, testing the cheatsheet against a wider range of mathematical problems and reasoning tasks will be essential to validate its generalizability and robustness.
+A practical extension is to trigger ATP backends only on the fallback branch, preserving fast witness-first behavior while strengthening positive-certification coverage.

@@ -1,17 +1,16 @@
 \section{Introduction}
 
-The landscape of modern collaborative mathematics has been transformed by large-scale projects such as the Equational Theories Project (ETP), led by Terence Tao \cite{bolan2025etp}. By mapping the implication graph between 4,694 simple equational laws on magmas, the ETP has generated a massive repository of algebraic knowledge containing over 22 million implications. This data-driven approach to universal algebra has provided unprecedented insights into the structure of equational theories and their properties.
+Determining whether one equational law implies another is a basic operation in universal algebra and automated theorem proving. In the Equational Theories Project (ETP), this question appears at scale: a large implication graph over magma laws has been computed and formalized, making implication prediction and certification a central practical task~\cite{bolan2025etp}. Fast implication decisions are useful as a routing layer before expensive proof search.
 
-However, a significant challenge remains: {\bf how can we effectively utilize this massive repository of knowledge in resource-constrained environments?} While high-performance automated theorem provers (ATPs) and large-scale graph databases can process this information, they are not easily integrated into the prompt-based reasoning of large language models (LLMs) or used as a compact reference for human researchers. Current neural approaches for predicting implications, while accurate, often require hundreds of kilobytes or even megabytes of storage, far exceeding the context windows and size constraints of many practical applications.
+Classical finite-model tools such as Mace4 emphasize falsification by small counterexamples~\cite{mccune2003mace4}. In parallel, learning-based approaches report strong predictive performance for equational tasks~\cite{piepenbrock2021learning,axelrod2026twitch}, and latent-geometry analyses reveal structure in the space of equational theories~\cite{berlioz2026latent}. For Stage-1 settings, however, there remains a need for a transparent, reproducible baseline that always emits strict boolean answers while keeping runtime low.
 
-There is a growing interest in the \emph{distillation} of mathematical knowledge—the process of reducing complex, large-scale information into its most essential and informative components. In the context of the ETP, this means identifying the core structural properties and syntactic rules that govern equational implications and compressing them into a format that is both human-readable and machine-processable.
+We study single-premise implication queries over magmas: given equations $E_1$ and $E_2$, decide whether $E_1 \models E_2$ with output in $\{\texttt{true},\texttt{false}\}$. Our solver uses a countermodel-first hybrid policy: bounded finite model search up to order $3$, then bounded symbolic derivation, and finally a deterministic boolean fallback required by the task contract.
 
-In this paper, we propose a multi-layered approach to the distillation of the ETP implication graph into a 10KB ``cheatsheet.'' Our method combines structural analysis, syntactic rule mining, and algebraic symmetry. Our main contributions are as follows:
-\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=2pt]
-    \item We perform a structural decomposition of the 4,694-law implication graph, identifying 1,415 strongly connected components (SCCs) that partition the laws into equivalence classes.
-    \item We formalize syntactic heuristics, such as the variable-preservation rule and term-depth bounds, which accurately predict a significant majority of non-implications.
-    \item We design and implement a hierarchical distillation algorithm that compresses the implication graph into a 9.1KB guide, covering over 50\% of the laws in the dataset.
-    \item We leverage algebraic duality to effectively double the information density of our compact representation.
-\end{itemize}
+Our contributions are threefold.
+\begin{enumerate}[leftmargin=*]
+\item We formalize the Stage-1 policy and prove structural guarantees: totality, strict boolean output, and soundness of negative answers.
+\item We provide reproducible computational evidence on a curated benchmark of ten implication pairs, obtaining $10/10$ accuracy with mean runtime $0.0623$ seconds per query.
+\item We identify a concrete limitation of the current derivation module: one true case is solved only by fallback, which motivates stronger positive-proof mechanisms.
+\end{enumerate}
 
-The remainder of this paper is organized as follows. Section \ref{sec:prelim} provides the necessary definitions and notation. Section \ref{sec:results} presents our main results on the structural decomposition of the graph and the extraction of syntactic heuristics. In Section \ref{sec:discussion}, we discuss the implications of our work and Section \ref{sec:conclusion} concludes.
+Section~2 introduces notation and the policy definition. Section~3 states and proves the main theoretical and computational results. Section~4 discusses implications, limitations, and open questions. Section~5 concludes with directions for extended evaluation and prover integration.
